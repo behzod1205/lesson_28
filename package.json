@@ -1,0 +1,25 @@
+{
+  "name": "lesson_28",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/behzod1205/lesson_28#readme",
+  "bugs": {
+    "url": "https://github.com/behzod1205/lesson_28/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/behzod1205/lesson_28.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "dev": "node --watch ./src/index.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "uuid": "^13.0.0"
+  }
+}

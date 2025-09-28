@@ -1,0 +1,38 @@
+[
+  {
+    "id": "9870cb4c-6740-43c1-ba33-6ce3dac75918",
+    "post_id": "50d9f482-fcbb-4d7a-a6d1-2efb17f45724",
+    "author_id": "224fef6a-1cc8-4028-95ba-81fd6f3477f8",
+    "content": "Beshinchi foydalanuvchi tomonidan comment.",
+    "created_at": "9/29/2025, 12:21:23 AM"
+  },
+  {
+    "id": "a6f9ad4c-7f3b-40cc-99cd-b2a05478c335",
+    "post_id": "50d9f482-fcbb-4d7a-a6d1-2efb17f45724",
+    "author_id": "6d19b1c4-984a-4648-879c-6bee0af47f6e",
+    "content": "Ikkinchi foydalanuvchi fikri.",
+    "created_at": "9/29/2025, 12:25:30 AM"
+  },
+  {
+    "id": "d5f590d8-01be-4b67-8e52-450983c9fe00",
+    "post_id": "50d9f482-fcbb-4d7a-a6d1-2efb17f45724",
+    "author_id": "410cd7e0-ca68-4388-9c61-5a3a074177e6",
+    "content": "Uchinchi userning commenti.",
+    "created_at": "9/29/2025, 12:25:51 AM"
+  },
+  {
+    "id": "1de338af-9790-47ff-b32a-9fa832f70b74",
+    "post_id": "50d9f482-fcbb-4d7a-a6d1-2efb17f45724",
+    "author_id": "f4b270dc-4b8e-4810-98b7-4e03a6fba306",
+    "content": "To‘rtinchi user yozib qoldirdi.",
+    "created_at": "9/29/2025, 12:26:00 AM"
+  },
+  {
+    "id": "ae4f9807-3300-4748-ab6b-230284e2df7a",
+    "post_id": "50d9f482-fcbb-4d7a-a6d1-2efb17f45724",
+    "author_id": "224fef6a-1cc8-4028-95ba-81fd6f3477f8",
+    "content": "Updated comment.",
+    "created_at": "9/29/2025, 12:29:31 AM",
+    "updated_at": "9/29/2025, 12:30:00 AM"
+  }
+]
