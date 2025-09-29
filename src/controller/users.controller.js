@@ -1,4 +1,4 @@
-import { db, getUserById } from "../helpers/index.js"
+import { commentfile, db, getUserAndPosts, getUserById } from "../helpers/index.js"
 import { v4 as uuidv4 } from "uuid"
 import { userfile } from "../helpers/index.js"
 
@@ -183,6 +183,113 @@ export const usersController = {
 
         } catch (error) {
         next(error)
+        }
+    },
+    findUserAndPosts: async function (req, res, next) {
+        try{
+            const { id } = req.params
+            const { page, limit, search} = req.query
+            const users = await db.read(userfile)
+            const User = users.find(user=>user.id === id)
+            if(!User) return res.status(404).json({message: `#User with ID ${id} not found`})
+            
+            const UserName = User.firstName + " " + User.lastName
+            const posts = await getUserAndPosts(id)
+            
+            let filteredPosts = posts
+
+            if (search) {
+                filteredPosts = filteredPosts.filter(post =>
+                post.title.toLowerCase().includes(search.toLowerCase()) ||
+                post.content.toLowerCase().includes(search.toLowerCase()) ||
+                post.summary.toLowerCase().includes(search.toLowerCase()) ||
+                post.categories.some(category => category.toLowerCase().includes(search.toLowerCase()))
+                )
+            }
+
+            const pageNum = parseInt(page) || 1
+            const limitNum = parseInt(limit) || 5
+
+            const startIndex = (pageNum - 1) * limitNum
+            const endIndex = pageNum * limitNum
+
+            const paginatedPosts = filteredPosts.slice(startIndex, endIndex)
+
+            res.send({
+                User: UserName,
+                posts: paginatedPosts,
+                total: filteredPosts.length,
+                page: pageNum,
+                limit: limitNum
+            })
+
+        }catch(err){
+            next(err)
+        }
+    },
+    findUserAndOnePost:  async function (req, res, next) {
+        try{
+            const { id, postId } = req.params
+            const users = await db.read(userfile)
+            const User = users.find(user=>user.id === id)
+            if(!User) return res.status(404).json({message: `#User with ID ${id} not found`})
+            
+            const UserName = User.firstName + " " + User.lastName
+            const posts = await getUserAndPosts(id)
+            
+            let filteredPost = posts.find(post=>post.id ===postId) || []
+
+            res.send({
+                User: UserName,
+                post: filteredPost
+            })
+
+        }catch(err){
+            next(err)
+        }
+    }, 
+    findUserAndOneWithComments: async function (req, res, next) {
+        try{
+            const { id, postId } = req.params
+            const { page, limit, search} = req.query
+
+            const users = await db.read(userfile)
+            const comments = await db.read(commentfile)
+
+            const User = users.find(user=>user.id === id)
+            if(!User) return res.status(404).json({message: `#User with ID ${id} not found`})
+            
+            const UserName = User.firstName + " " + User.lastName
+            const posts = await getUserAndPosts(id)
+            const Coms = comments.filter(com=>(com.post_id===postId&&com.author_id===id))
+
+            let filteredPost = posts.find(post=>post.id ===postId) || []
+
+            if(!Coms) return res.status(400).json({message: `#Post with Id ${postId} doesn't have any commnets`})
+            if (search){
+                Coms = Coms.filter(c=>c.post_id.toLowerCase().includes(search.toLowerCase())||
+                c.author_id.toLowerCase().includes(search.toLowerCase())||
+                c.content.toLowerCase().includes(search.toLowerCase()))
+            }
+                
+            const pageNum = parseInt(page) || 1
+            const limitNum = parseInt(limit) || 5
+
+            const startIndex = (pageNum - 1) * limitNum
+            const endIndex = pageNum * limitNum
+
+            const paginatedComs = Coms.slice(startIndex, endIndex)
+
+            res.send({
+                User: UserName,
+                post: filteredPost,
+                comments: paginatedComs,
+                page: pageNum,
+                limit: limitNum
+            })
+
+        }catch(err){
+            next(err)
         }
     }
 }

@@ -19,5 +19,8 @@ UserRouter.get("/:id", usersController.findOne)
 UserRouter.post("/", usersController.create)
 UserRouter.put("/:id", usersController.update)
 UserRouter.delete("/:id", usersController.delete)
+UserRouter.get("/:id/posts", usersController.findUserAndPosts)
+UserRouter.get("/:id/posts/:postId", usersController.findUserAndOnePost)
+UserRouter.get("/:id/posts/:postId/comments", usersController.findUserAndOneWithComments)
 
 export { UserRouter }

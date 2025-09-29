@@ -22,3 +22,10 @@ export async function getUsersNames(postId) {
     })
     return userNames
 }
+
+export async function getUserAndPosts(userId) {
+    const posts = await db.read(postfile)
+    // let postsWithUser = []
+    const userPosts = posts.filter(p=>p.author_id===userId)
+    return userPosts
+}
